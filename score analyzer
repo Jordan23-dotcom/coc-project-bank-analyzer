@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <stdlib.h> // Required for exit()
+
+// Function Prototypes (Day 6)
+double calculate_mean(int arr[], int size);
+int find_highest(int arr[], int size);
+int find_lowest(int arr[], int size);
+
+// --- MAIN FUNCTION ---
+int main() {
+    int n; // Variable to store the number of students
+    
+    printf("--- Student Score Analyzer ---\n");
+    printf("Enter the number of students/scores you want to analyze: ");
+    
+    // Check if the user input is a valid integer and greater than 0
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        printf("Invalid input. Please enter a positive whole number.\n");
+        return 1;
+    }
+
+    // Declare a 1D Array of size 'n' to store the scores (Day 5)
+    int scores[n];
+    
+    printf("------------------------------\n");
+    
+    // Use a for loop to read 'n' scores from the user (Day 4)
+    for (int i = 0; i < n; i++) {
+        printf("Enter score for student %d (0-100): ", i + 1);
+        if (scanf("%d", &scores[i]) != 1) {
+            printf("Invalid input. Please enter a whole number for the score.\n");
+            return 1;
+        }
+        // Optional: input validation for score range
+        if (scores[i] < 0 || scores[i] > 100) {
+            printf("Warning: Score %d is outside the expected 0-100 range, but will be used.\n", scores[i]);
+        }
+    }
+
+    // Call the analysis functions (Day 6)
+    double average = calculate_mean(scores, n);
+    int highest = find_highest(scores, n);
+    int lowest = find_lowest(scores, n);
+
+    // Print the clean report (Output requirement)
+    printf("\n--- Analysis Summary Report ---\n");
+    printf("Total Scores Analyzed: %d\n", n);
+    printf("Class Average: %.2f\n", average); // .2f limits output to two decimal places
+    printf("Highest Score: %d\n", highest);
+    printf("Lowest Score: %d\n", lowest);
+    printf("-------------------------------\n");
+
+    return 0;
+}
+
+/**
+ * @brief Calculates the arithmetic mean (average) of an array of scores.
+ * * @param arr The array of integer scores.
+ * @param size The number of elements in the array.
+ * @return The calculated mean as a double.
+ */
+double calculate_mean(int arr[], int size) {
+    // Math Concept: Mean (Day 2)
+    int sum = 0;
+    // Iterate through the array to find the sum
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+    // Perform division as double to get floating-point average
+    return (double)sum / size;
+}
+
+/**
+ * @brief Finds the highest (maximum) score in the array.
+ * * @param arr The array of integer scores.
+ * @param size The number of elements in the array.
+ * @return The highest integer score found.
+ */
+int find_highest(int arr[], int size) {
+    // Start by assuming the first element is the highest (initial guess)
+    int max_score_so_far = arr[0]; 
+    
+    // Iterate from the second element (index 1) to the end
+    for (int i = 1; i < size; i++) {
+        // Use an if statement (Day 3) to compare the current score
+        if (arr[i] > max_score_so_far) {
+            max_score_so_far = arr[i]; // Update if a new highest is found
+        }
+    }
+    return max_score_so_far;
+}
+
+/**
+ * @brief Finds the lowest (minimum) score in the array.
+ * * @param arr The array of integer scores.
+ * @param size The number of elements in the array.
+ * @return The lowest integer score found.
+ */
+int find_lowest(int arr[], int size) {
+    // Start by assuming the first element is the lowest (initial guess)
+    int min_score_so_far = arr[0]; 
+
+    // Iterate from the second element (index 1) to the end
+    for (int i = 1; i < size; i++) {
+        // Use an if statement (Day 3) to compare the current score
+        if (arr[i] < min_score_so_far) {
+            min_score_so_far = arr[i]; // Update if a new lowest is found
+        }
+    }
+    return min_score_so_far;
+}
